@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>One Sentence, Many Situations</title>
+<style>
+:root{--bg:#f4f7ff;--card:#fff;--ink:#1b2440;--mut:#5a6586;--pri:#3b5bdb;--ok:#2b9348;--bad:#d62839;--sun:#ffd23f;--line:#d9e0f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#121830;--card:#1c2547;--ink:#eef1ff;--mut:#a5afd4;--pri:#8ea6ff;--ok:#5fd47f;--bad:#ff7b87;--line:#35407a}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Trebuchet MS",Verdana,sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+.hero{background:var(--pri);color:#fff;border-radius:18px;padding:18px;margin-bottom:12px}.hero h1{margin:0;font-size:26px}.hero small{opacity:.92}
+.tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:14px;margin:0 0 12px}
+h2{margin:0 0 6px;font-size:20px}h3{margin:0 0 2px;font-size:18px}
+.es{color:var(--mut);font-style:italic;margin:2px 0 0}
+.row{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line)}.row:last-child{border:0}
+.row>div{flex:1}.row p{margin:0}
+.lab{font-size:14px;color:var(--mut)}.fm{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:1px 8px;font:14px "Courier New",monospace;margin:2px 0}
+mark{background:var(--sun);color:#1b2440;border-radius:4px;padding:0 3px}
+button{font:inherit;cursor:pointer;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.on,.go{background:var(--sun);color:#1b2440;border-color:var(--sun);font-weight:bold}
+.snd{border-radius:50%;width:40px;height:40px;padding:0;flex:none}
+.opt{display:block;width:100%;text-align:left;margin:6px 0}
+.opt.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.opt.bad{background:var(--bad);color:#fff;border-color:var(--bad)}
+input{font:inherit;width:100%;padding:10px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);margin:6px 0}
+.fb{min-height:1.4em;margin:4px 0 0;font-weight:bold}.big{font-size:48px;font-weight:bold;color:var(--pri);text-align:center}
+</style></head><body><main>
+<div class="hero"><h1>One Sentence, Many Situations ✏️</h1><small>Una misma oración en muchas situaciones: aprende la fórmula y practica.</small></div>
+<div class="tabs" id="tabs"></div><div id="app"></div>
+</main>
+<script>
+const LAB=[["Affirmative (+)","Afirmativa"],["Negative (−)","Negativa"],["Question (?)","Pregunta"],["WH question","Pregunta con WH"]];
+const GR=["Simple Present · Presente simple","Simple Past · Pasado simple","Present Continuous · Presente continuo"];
+const F12=[["Subject + verb (+s with he/she/it)","Sujeto + verbo (+s con he/she/it)"],["Subject + don’t/doesn’t + base verb","Sujeto + don’t/doesn’t + verbo base"],["Do/Does + subject + base verb?","Do/Does + sujeto + verbo base?"],["WH + do/does + subject + base verb?","WH + do/does + sujeto + verbo base?"],
+["Subject + verb-ed (or irregular past)","Sujeto + verbo-ed (o pasado irregular)"],["Subject + didn’t + base verb","Sujeto + didn’t + verbo base"],["Did + subject + base verb?","Did + sujeto + verbo base?"],["WH + did + subject + base verb?","WH + did + sujeto + verbo base?"],
+["Subject + am/is/are + verb-ing","Sujeto + am/is/are + verbo-ing"],["Subject + am/is/are + not + verb-ing","Sujeto + am/is/are + not + verbo-ing"],["Am/Is/Are + subject + verb-ing?","Am/Is/Are + sujeto + verbo-ing?"],["WH + am/is/are + subject + verb-ing?","WH + am/is/are + sujeto + verbo-ing?"]];
+const F6=[["There is/are + noun + place","There is/are + sustantivo + lugar"],["There isn’t/aren’t + noun + place","There isn’t/aren’t + sustantivo + lugar"],["Is/Are + there + noun + place?","Is/Are + there + sustantivo + lugar?"],["There was/were + noun + place","There was/were + sustantivo + lugar"],["There wasn’t/weren’t + noun + place","There wasn’t/weren’t + sustantivo + lugar"],["Was/Were + there + noun + place?","Was/Were + there + sustantivo + lugar?"]];
+const S=[
+{n:"She plays soccer.",r:[["She plays soccer.","Ella juega al fútbol."],["She [doesn’t] play soccer.","Ella no juega al fútbol."],["[Does] she play soccer?","¿Ella juega al fútbol?"],["What [does] she play?","¿A qué juega ella?"],["She played soccer.","Ella jugó al fútbol."],["She [didn’t] play soccer.","Ella no jugó al fútbol."],["[Did] she play soccer?","¿Ella jugó al fútbol?"],["What [did] she play?","¿A qué jugó ella?"],["She [is] playing soccer.","Ella está jugando al fútbol."],["She [isn’t] playing soccer.","Ella no está jugando al fútbol."],["[Is] she playing soccer?","¿Ella está jugando al fútbol?"],["What [is] she playing?","¿A qué está jugando ella?"]]},
+{n:"They go to school.",r:[["They go to school.","Ellos van a la escuela."],["They [don’t] go to school.","Ellos no van a la escuela."],["[Do] they go to school?","¿Ellos van a la escuela?"],["Where [do] they go?","¿A dónde van ellos?"],["They went to school.","Ellos fueron a la escuela."],["They [didn’t] go to school.","Ellos no fueron a la escuela."],["[Did] they go to school?","¿Ellos fueron a la escuela?"],["Where [did] they go?","¿A dónde fueron ellos?"],["They [are] going to school.","Ellos están yendo a la escuela."],["They [aren’t] going to school.","Ellos no están yendo a la escuela."],["[Are] they going to school?","¿Ellos están yendo a la escuela?"],["Where [are] they going?","¿A dónde están yendo ellos?"]]},
+{n:"He eats pizza.",r:[["He eats pizza.","Él come pizza."],["He [doesn’t] eat pizza.","Él no come pizza."],["[Does] he eat pizza?","¿Él come pizza?"],["What [does] he eat?","¿Qué come él?"],["He ate pizza.","Él comió pizza."],["He [didn’t] eat pizza.","Él no comió pizza."],["[Did] he eat pizza?","¿Él comió pizza?"],["What [did] he eat?","¿Qué comió él?"],["He [is] eating pizza.","Él está comiendo pizza."],["He [isn’t] eating pizza.","Él no está comiendo pizza."],["[Is] he eating pizza?","¿Él está comiendo pizza?"],["What [is] he eating?","¿Qué está comiendo él?"]]},
+{n:"I watch TV.",r:[["I watch TV.","Yo miro televisión."],["I [don’t] watch TV.","Yo no miro televisión."],["[Do] you watch TV?","¿Tú miras televisión?"],["When [do] you watch TV?","¿Cuándo miras televisión?"],["I watched TV.","Yo miré televisión."],["I [didn’t] watch TV.","Yo no miré televisión."],["[Did] you watch TV?","¿Tú miraste televisión?"],["When [did] you watch TV?","¿Cuándo miraste televisión?"],["I [am] watching TV.","Yo estoy mirando televisión."],["I [am not] watching TV.","Yo no estoy mirando televisión."],["[Are] you watching TV?","¿Tú estás mirando televisión?"],["Why [are] you watching TV?","¿Por qué estás mirando televisión?"]]},
+{n:"There is a book on the table.",six:1,r:[["There [is] a book on the table.","Hay un libro sobre la mesa."],["There [isn’t] a book on the table.","No hay un libro sobre la mesa."],["[Is] there a book on the table?","¿Hay un libro sobre la mesa?"],["There [was] a book on the table.","Había un libro sobre la mesa."],["There [wasn’t] a book on the table.","No había un libro sobre la mesa."],["[Was] there a book on the table?","¿Había un libro sobre la mesa?"]]},
+{n:"There are two books on the table.",six:1,r:[["There [are] two books on the table.","Hay dos libros sobre la mesa."],["There [aren’t] two books on the table.","No hay dos libros sobre la mesa."],["[Are] there two books on the table?","¿Hay dos libros sobre la mesa?"],["There [were] two books on the table.","Había dos libros sobre la mesa."],["There [weren’t] two books on the table.","No había dos libros sobre la mesa."],["[Were] there two books on the table?","¿Había dos libros sobre la mesa?"]]}
+];
+const EX=[["Present · Presente",[["He works hard.","Él trabaja duro."],["They don’t play here.","Ellos no juegan aquí."],["Does she study at night?","¿Ella estudia de noche?"],["Where do you live?","¿Dónde vives?"],["My mother doesn’t eat meat.","Mi mamá no come carne."]]],
+["Past · Pasado",[["We watched a movie.","Vimos una película."],["I didn’t see Ana.","No vi a Ana."],["Did you go home?","¿Fuiste a casa?"],["Why did he leave?","¿Por qué se fue?"],["They had a party.","Ellos tuvieron una fiesta."]]],
+["Continuous · Continuo",[["I am studying now.","Estoy estudiando ahora."],["She isn’t sleeping.","Ella no está durmiendo."],["Are they playing outside?","¿Están jugando afuera?"],["What are you doing?","¿Qué estás haciendo?"]]],
+["There is / are / was / were",[["There is a cat in the room.","Hay un gato en el cuarto."],["There aren’t any chairs.","No hay sillas."],["Was there a test yesterday?","¿Hubo una prueba ayer?"],["There weren’t many people.","No había mucha gente."]]],
+["WAS / WERE",[["I was tired.","Estaba cansado."],["You weren’t late.","No llegaste tarde."],["Were they at home?","¿Estaban en casa?"]]]];
+const TY=[["Negative · present","Negativa en presente","He plays games.","He doesn’t play games."],["Question · present","Pregunta en presente","They like pizza.","Do they like pizza?"],["Past · affirmative","Pasado afirmativo","I watch TV.","I watched TV."],["Negative · past","Negativa en pasado","She goes to school.","She didn’t go to school."],["Question · past","Pregunta en pasado","You see the movie.","Did you see the movie?"],["Present continuous","Presente continuo","We eat lunch.","We are eating lunch."],["Negative · continuous","Negativa en continuo","He works.","He isn’t working."],["WH question with “What”","Pregunta con “What”","She eats pizza.","What does she eat?"],["Negative · there","Negativa con there","There is a cat.","There isn’t a cat."],["Past · there","Pasado con there","There are two dogs.","There were two dogs."],["Question · there","Pregunta con there","There is a bank here.","Is there a bank here?"],["Negative · past","Negativa en pasado","I eat meat.","I didn’t eat meat."]];
+const MC=[["Question in the past: “They go home.”","Pregunta en pasado","Did they go home?","Did they went home?","Do they go home?"],["Present continuous: “She eats.”","Presente continuo","She is eating.","She eating.","She is eats."],["Negative: “She likes pizza.”","Negativa en presente","She doesn’t like pizza.","She doesn’t likes pizza.","She don’t like pizza."],["Past of there is: “There is a park.”","Pasado de there is","There was a park.","There were a park.","There is a park."]];
+const $=s=>document.querySelector(s),app=$("#app");
+let tab=0,si=0,res={};
+const plain=t=>t.replace(/[\[\]]/g,""),mk=t=>t.replace(/\[(.+?)\]/g,"<mark>$1</mark>");
+function say(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.9;speechSynthesis.speak(u)}catch(e){}}
+function beep(ok){try{const c=new (window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=ok?660:200;g.gain.value=.08;o.start();o.stop(c.currentTime+.18)}catch(e){}}
+const snd=t=>`<button class="snd" aria-label="Listen" onclick="say(this.dataset.t)" data-t="${plain(t)}">🔊</button>`;
+const norm=s=>s.toLowerCase().replace(/[’‘]/g,"'").replace(/[.?!]/g,"").replace(/n't/g," not").replace(/\s+/g," ").trim();
+function tabs(){$("#tabs").innerHTML=["📘 Learn · Aprende","📝 More examples · Más ejemplos","🎯 Practice · Practica"].map((x,k)=>`<button class="${k==tab?"on":""}" onclick="tab=${k};draw()">${x}</button>`).join("")}
+function draw(){tabs();[learn,more,practice][tab]();scrollTo(0,0)}
+function learn(){const s=S[si],six=s.six,F=six?F6:F12,per=six?3:4;
+let h=`<div class="card"><h2>Choose a sentence · Elige una oración</h2><p class="es">Mira cómo cambia la misma oración en cada situación. Lo resaltado es lo que cambia.</p>${S.map((x,k)=>`<button class="${k==si?"on":""}" style="margin:3px" onclick="si=${k};learn()">${x.n}</button>`).join("")}</div>`;
+for(let g=0;g<s.r.length/per;g++){h+=`<div class="card"><h2>${six?["There is / are · Hay","There was / were · Había"][g]:GR[g]}</h2>`;
+for(let j=0;j<per;j++){const k=g*per+j,r=s.r[k];h+=`<div class="row"><div><p class="lab">${LAB[j][0]} · ${LAB[j][1]}</p><p class="lab"><span class="fm">${F[k][0]}</span><br>${F[k][1]}</p><p><b>${mk(r[0])}</b></p><p class="es">${r[1]}</p></div>${snd(r[0])}</div>`}h+=`</div>`}
+app.innerHTML=h;if(arguments.length==0)return}
+function more(){app.innerHTML=EX.map(g=>`<div class="card"><h2>${g[0]}</h2>${g[1].map(e=>`<div class="row"><div><p><b>${e[0]}</b></p><p class="es">${e[1]}</p></div>${snd(e[0])}</div>`).join("")}</div>`).join("")}
+function practice(){let h=`<div class="card"><h2>Part A · Type it · Escríbela</h2><p class="es">Transforma la oración según la instrucción. Se aceptan formas cortas (don’t) y largas (do not).</p>`;
+TY.forEach((q,k)=>{h+=`<div class="row"><div><p class="lab">${q[0]} · ${q[1]}</p><p><b>${q[2]}</b></p><input id="t${k}" autocomplete="off" placeholder="Write here…" ${res["t"+k]!=null?"disabled":""} onkeydown="if(event.key=='Enter')chk(${k})"><button onclick="chk(${k})" ${res["t"+k]!=null?"disabled":""}>Check · Revisar</button><p class="fb" id="ft${k}"></p></div></div>`});
+h+=`</div><div class="card"><h2>Part B · Choose · Elige</h2>`;
+MC.forEach((q,k)=>{const o=[[q[2],1],[q[3],0],[q[4],0]].sort(()=>Math.random()-.5);h+=`<div id="m${k}" class="row"><div><p><b>${q[0]}</b></p><p class="es">${q[1]}</p>${o.map(p=>`<button class="opt" data-c="${p[1]}" onclick="pick(this,${k})">${p[0]}</button>`).join("")}<p class="fb" id="fm${k}"></p></div></div>`});
+h+=`<button class="go" onclick="fin()">See my result · Ver mi resultado</button><div id="end"></div></div>`;app.innerHTML=h;
+Object.keys(res).forEach(key=>{if(key[0]=="t"){const k=+key.slice(1);$("#t"+k).value=res.v?.[k]||"";mark(k,res[key])}})}
+function mark(k,ok){$("#ft"+k).textContent=ok?"✅ Correct! · ¡Correcto!":"❌ Answer · Respuesta: "+TY[k][3]}
+function chk(k){const v=$("#t"+k).value;if(!v.trim())return;const ok=norm(v)==norm(TY[k][3]);res["t"+k]=ok;(res.v=res.v||{})[k]=v;$("#t"+k).disabled=true;mark(k,ok);beep(ok);if(ok)say(TY[k][3])}
+function pick(b,k){const box=b.parentElement;if(box.dataset.d)return;box.dataset.d=1;const ok=b.dataset.c=="1";res["m"+k]=ok;box.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.dataset.c=="1")x.classList.add("ok")});if(!ok)b.classList.add("bad");beep(ok);$("#fm"+k).textContent=ok?"✅ Correct! · ¡Correcto!":"❌ Not quite · Casi";if(ok)say(MC[k][2])}
+function fin(){const n=TY.length+MC.length,s=Object.keys(res).filter(k=>res[k]===true).length,p=Math.round(s/n*100);
+const m=p>=80?["Excellent work!","¡Excelente trabajo!"]:p>=50?["Good job! Keep practicing.","¡Buen trabajo! Sigue practicando."]:["Keep trying, you can do it!","¡Sigue intentando, tú puedes!"];
+$("#end").innerHTML=`<div class="big">${s} / ${n}</div><p style="text-align:center"><b>${m[0]}</b></p><p class="es" style="text-align:center">${m[1]}</p>`;say(m[0])}
+draw();
+</script></body></html>
